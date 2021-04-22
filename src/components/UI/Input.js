@@ -1,5 +1,6 @@
 import classes from './Input.module.css';
 
+//создаю кмпонент с версткой для реализации input
 const Input = (props) => {
     return (
         <div className={classes.input}>

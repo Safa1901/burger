@@ -1,5 +1,6 @@
 import classes from './Card.module.css';
 
+//реалезация компонента обертки
 const Card = props => {
     return <div className={classes.card}>{props.children}</div>
 };

@@ -1,8 +1,10 @@
 import Card from '../UI/Card';
 import MealItem from './MealItem/MealItem';
+//подключаю компонент meal item
 import classes from './AvailableMeals.module.css';
 
 const DUMMY_MEALS = [
+  //создаю массив собъктами содержащие информацию деталей меню, каждому объекту в массиве присваевыем id номер для использования элемента
     {
       id: 'm1',
       name: 'Суши',
@@ -28,9 +30,10 @@ const DUMMY_MEALS = [
       price: 18.99,
     },
 ];
-
+//реализую компонент,так же не использую props, компонент переиспользоваться не будет, объявляем переменную meallist и присваеваем значение массива DUMMY_MEALS. 
 const AvailableMeals = () => {
     const mealList = DUMMY_MEALS.map((meal) => (
+      //реализую компонент meal item, в который через props пробрасываю верстку для этой секции и наполняю содержимым 
         <MealItem 
             key={meal.id} 
             name={meal.name} 
@@ -38,7 +41,7 @@ const AvailableMeals = () => {
             price={meal.price} 
         />
     ));
-
+// создаю секцию с списком наименований полученных в переменную meallist из метода map и помещаю в заготовленную обертку Card с props
     return (
     <section className={classes.meals}>
         <Card>

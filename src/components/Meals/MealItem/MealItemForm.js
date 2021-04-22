@@ -1,6 +1,8 @@
 import Input from '../../UI/Input';
+//добавляю компонент input 
 import classes from './MealItemForm.module.css';
 
+//подключаю компонент через props. Реализую форму добавления колличества блюд с помощью компонента input и button
 const MealItemForm = (props) => {
     return (
         <form className={classes.form}>

@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom';
 
 import classes from './Modal.module.css';
 
+//реалезация кнопки закрытия модального окна
 const Backdrop = (props) => {
-    return <div className={classes.backdrop} />;
+    return <div className={classes.backdrop} onClick={props.onClose} />;
 };
 
+//реализация кнопки заказа
 const ModalOverlay = (props) => {
     return (
         <div className={classes.modal}>
@@ -15,11 +17,13 @@ const ModalOverlay = (props) => {
     );
 };
 
+//получения доступа к div через id
 const portalElement = document.getElementById('overLays');
 
+//создание компонента модального окна и реализация через портал, помещение кнопок 
 const Modal = (props) => {
     return <Fragment>
-        {ReactDOM.createPortal(<Backdrop />, portalElement)}
+        {ReactDOM.createPortal(<Backdrop onClose={props.onClose} />, portalElement)}
         {ReactDOM.createPortal(
             <ModalOverlay>{props.children}</ModalOverlay>,
             portalElement

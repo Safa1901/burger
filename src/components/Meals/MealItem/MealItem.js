@@ -1,7 +1,7 @@
 import MealItemForm from './MealItemForm';
 import classes from './MealItem.module.css';
 
-
+//создаю компонент с версткой для одной секции
 const MealItem = (props) => {
     const price = `$${props.price.toFixed(2)}`;
 
@@ -13,6 +13,7 @@ const MealItem = (props) => {
                 <div className={classes.price}>{price}</div>
             </div>
             <div>
+            {/*подключаю форму с колличеством блюд */}
                 <MealItemForm />
             </div>
         </li>
