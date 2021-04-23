@@ -6,7 +6,7 @@ import CartContext from '../../store/cart-context';
 import classes from './HeaderCartButton.module.css';
 //поключение стилей
 
-//создаю компонент кнопки корзина
+//создаю компонент кнопки корзина и передаю в переменную данные полученные из createContext
 const HeaderCartButton = (props) => {
     const cartCtx = useContext(CartContext);
 

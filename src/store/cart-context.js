@@ -1,6 +1,6 @@
 import React from 'react';
 
-//создание компонента шаблона текста корзины
+//создание компонента шаблона текста корзины,создаю createContext для получения данных
 const CartContext = React.createContext({
     items: [],
     totalAmount: 0,

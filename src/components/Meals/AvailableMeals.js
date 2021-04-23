@@ -36,6 +36,7 @@ const AvailableMeals = () => {
       //реализую компонент meal item, в который через props пробрасываю верстку для этой секции и наполняю содержимым 
         <MealItem 
             key={meal.id} 
+            id={meal.id}
             name={meal.name} 
             description={meal.description} 
             price={meal.price} 
