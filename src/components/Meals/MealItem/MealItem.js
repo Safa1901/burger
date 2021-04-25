@@ -8,9 +8,9 @@ import CartContext from '../../../store/cart-context';
 const MealItem = (props) => {
     const cartCtx = useContext(CartContext);
 
-    const price = `$${props.price.toFixed(2)}`;
+    const price = `P${props.price.toFixed(2)}`;
 
-    const addToCartHandler = amount => {
+    const addToCartHandler = amount => { //получаю доступ к контексту и передаю через props.id компонентов
         cartCtx.addItem({
             id: props.id,
             name: props.name,

@@ -22,6 +22,7 @@ function App() {
   };
 
   return (
+    //добовляю заголовку CartProvider для доступа к  компоненту логики корзины
     <CartProvider>
       {cartIsShown && <Cart onClose={hideCartHandler} />}
       <Header onShowCart={showCartHandler} />

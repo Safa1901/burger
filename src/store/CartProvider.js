@@ -2,15 +2,17 @@ import { useReducer } from 'react';
 
 import CartContext from './cart-context';
 
+//состояние корзины по умолчанию
 const defaultCartStaate = {
     items: [],
     totalAmount: 0
 };
 
+//создаю компонент, который будет управлять состосянием и будет проверять является ли какое-то значение уже частью заказа
 const cartReducer = (state, action) => {
     if (action.type === 'ADD') {
-        const updateItems = state.items.concat(action.item);
-        const updateTotalAmount = state.totalAmount + action.item.price * action.item.amount;
+        const updateItems = state.items.concat(action.item); //получение общего колличества блюд
+        const updateTotalAmount = state.totalAmount + action.item.price * action.item.amount; // получение общей суммы
         return {
             items: updateItems,
             totalAmount: updateTotalAmount
@@ -19,14 +21,17 @@ const cartReducer = (state, action) => {
     return defaultCartStaate;
 };
 
+//создаю компонент, который будет управлять контекстом и предоставлять данные всем компонентам
 const CartProvider = (props) => {
     const [cartState, dispatchCartAction] = useReducer(cartReducer, defaultCartStaate);
 
-    //реализация добавления и удаления элементов
+    //реализация логики управления элементом
+    //добавляю элемент добавления
     const addItemToCartHandler = (item) => {
         dispatchCartAction({type: 'ADD', item: item});
     };
 
+    // так же добавляю элемент удаления 
     const removeItemFromCartHandler = (id) =>{
         dispatchCartAction({type: 'REMOVE', id: id});
     };
@@ -37,7 +42,7 @@ const CartProvider = (props) => {
         addItem: addItemToCartHandler,
         removeItem: removeItemFromCartHandler
     };
-//создание компонента и подключение обертки для текста
+//возвращаю CartContext через провайдер и получаю доступ к props CartProvider
     return (
     <CartContext.Provider value={cartContext}>
         {props.children}

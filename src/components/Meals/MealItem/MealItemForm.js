@@ -6,14 +6,14 @@ import classes from './MealItemForm.module.css';
 
 //подключаю компонент через props. Реализую форму добавления колличества блюд с помощью компонента input и button
 const MealItemForm = (props) => {
-    const [amountIsValid, setAmountValid] = useState(true)
+    const [amountIsValid, setAmountValid] = useState(true) //создаю состояние для вывода ошибки при введение некоректного значения
     const amountInputRef = useRef();
 
-    const submitHandler = event => {
+    const submitHandler = event => { //подключаю к форме обработчик события и ставлю preventDefault для предотвращения перезагрузки страницы
         event.preventDefault();
 
-        const enterdAmount = amountInputRef.current.value;
-        const enterdAmountNumber = +enterdAmount;
+        const enterdAmount = amountInputRef.current.value; //получаю доступ к значению через ссылку
+        const enterdAmountNumber = +enterdAmount; //для ввода числа,а не строки объявляю 0 переменной и прибавляю полученное число
 
         if (
             enterdAmount.trim().length === 0 || 
@@ -21,9 +21,9 @@ const MealItemForm = (props) => {
             enterdAmountNumber > 5
             ) {
                 setAmountValid(false);
-            return;
+            return; //делаю проверку для ввода числа
         }
-        props.onAddToCart(enterdAmountNumber);
+        props.onAddToCart(enterdAmountNumber); //вызываю полученное значение
     };
 
     return (
@@ -41,7 +41,7 @@ const MealItemForm = (props) => {
                 }} 
             />
             <button>+ Добавить</button>
-            {!amountIsValid && <p>Пожалуйста, введите количество (1-5).</p>}
+            {!amountIsValid && <p>Пожалуйста, введите количество (1-5).</p>} {/*сообщение для ввода корректного колличества */}
         </form>
     );
 };

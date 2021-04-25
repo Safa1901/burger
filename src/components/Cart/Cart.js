@@ -7,15 +7,15 @@ import CartContext from '../../store/cart-context';
 
 //реализация корзины по клику
 const Cart = (props) => {
-    const cartCtx = useContext(CartContext);
+    const cartCtx = useContext(CartContext); //получаю доступ к контексту
 
-    const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
-    const hasItems = cartCtx.items.length > 0;
+    const totalAmount = `P${cartCtx.totalAmount.toFixed(2)}`; //оформляю корректный вывод ссумы 
+    const hasItems = cartCtx.items.length > 0; //проверяю имеет ли \элементдлинну больше 0
 
     const cartItemRemoveHandler = id => {};
     const cartItemAddHandler = item => {};
 
-    const cartItems = (
+    const cartItems = ( //реализация коректного отображения списка заказанного меню
         <ul className={classes['cart-items']}> 
             {cartCtx.items.map((item) => (
                 <CartItem 
@@ -23,7 +23,7 @@ const Cart = (props) => {
                 name={item.name} 
                 amount={item.amount} 
                 price={item.price} 
-                onRemove={cartItemRemoveHandler.bind(null, item.id)} 
+                onRemove={cartItemRemoveHandler.bind(null, item.id)} //реализация добавления и удаления блюд из списка
                 onAdd={cartItemAddHandler.bind(null, item)}
                 />
                 ))}
@@ -41,7 +41,7 @@ const Cart = (props) => {
                 <button className={classes['button-alt']} onClick={props.onClose}>
                     Закрыть
                 </button>
-                {hasItems && <button className={classes.button}>Заказывать</button>}
+                {hasItems && <button className={classes.button}>Заказывать</button>} {/*в случае корректного ввода кнопка срабатывает */}
             </div>
         </Modal>
     );
