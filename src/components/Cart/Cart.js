@@ -10,11 +10,16 @@ const Cart = (props) => {
     const cartCtx = useContext(CartContext); //получаю доступ к контексту
 
     const totalAmount = `P${cartCtx.totalAmount.toFixed(2)}`; //оформляю корректный вывод ссумы 
-    const hasItems = cartCtx.items.length > 0; //проверяю имеет ли \элементдлинну больше 0
+    const hasItems = cartCtx.items.length > 0; //проверяю имеет ли элемент длинну больше 0
 
-    const cartItemRemoveHandler = id => {};
-    const cartItemAddHandler = item => {};
+    const cartItemRemoveHandler = (id) => {
+        cartCtx.removeItem(id);
+    };
 
+    const cartItemAddHandler = (item) => {
+        cartCtx.addItem({ ...item, amount: 1 }); //добавление индекса
+    };
+    
     const cartItems = ( //реализация коректного отображения списка заказанного меню
         <ul className={classes['cart-items']}> 
             {cartCtx.items.map((item) => (
