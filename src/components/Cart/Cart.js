@@ -1,12 +1,14 @@
-import { useContext } from 'react';
+import { useContext, useState} from 'react';
 
 import Modal from '../UI/Modal';
 import CartItem from './CartItem';
 import classes from './Cart.module.css';
 import CartContext from '../../store/cart-context';
+import Checkout from './Checkout';
 
 //реализация корзины по клику
 const Cart = (props) => {
+    const [isCheckout, setIsCheckout] = useState(false);
     const cartCtx = useContext(CartContext); //получаю доступ к контексту
 
     const totalAmount = `P${cartCtx.totalAmount.toFixed(2)}`; //оформляю корректный вывод ссумы 
@@ -20,6 +22,10 @@ const Cart = (props) => {
         cartCtx.addItem({ ...item, amount: 1 }); //добавление индекса
     };
     
+    const orderHandler = () => {
+        setIsCheckout(true);
+    };
+
     const cartItems = ( //реализация коректного отображения списка заказанного меню
         <ul className={classes['cart-items']}> 
             {cartCtx.items.map((item) => (
@@ -34,6 +40,19 @@ const Cart = (props) => {
                 ))}
         </ul>
     );
+    const modalActions = (
+        <div className={classes.actions}>
+            <button className={classes['button-alt']} onClick={props.onClose}>
+                Закрыть
+            </button>
+            {hasItems && (
+                <button className={classes.button} onClick={orderHandler}>
+                    Заказывать
+                </button>
+            )}
+        </div>
+    );
+
 //вызов компонента Modal и наполнение содержимым
     return (
         <Modal onClose={props.onClose}>
@@ -42,12 +61,8 @@ const Cart = (props) => {
                 <span>Общая сумма</span>
                 <span>{totalAmount}</span>
             </div>
-            <div className={classes.actions}>
-                <button className={classes['button-alt']} onClick={props.onClose}>
-                    Закрыть
-                </button>
-                {hasItems && <button className={classes.button}>Заказывать</button>} {/*в случае корректного ввода кнопка срабатывает */}
-            </div>
+            {isCheckout && <Checkout onCancel={props.onClose} />}
+            {!isCheckout && modalActions}
         </Modal>
     );
 };

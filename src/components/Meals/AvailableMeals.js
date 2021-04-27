@@ -8,10 +8,19 @@ import classes from './AvailableMeals.module.css';
 //реализую компонент,так же не использую props, компонент переиспользоваться не будет, объявляем переменную meallist и присваеваем значение массива DUMMY_MEALS. 
 const AvailableMeals = () => {
   const [meals, setMeals] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [httpError, setHttpError] = useState();
 
   useEffect(() => {
     const fetchMeals = async () => {
-      const response = await fetch('https://burger-7ba40-default-rtdb.firebaseio.com/meals.json');
+      const response = await fetch(
+        'https://burger-7ba40-default-rtdb.firebaseio.com/meals.json'
+      );
+      
+      if (!response.ok) {
+        throw new Error('Что-то пошло не так!');
+      }
+
       const responseData = await response.json();
 
       const loadedMeals = [];
@@ -26,10 +35,31 @@ const AvailableMeals = () => {
       }
 
       setMeals(loadedMeals);
+      setIsLoading(false);
     };
 
-    fetchMeals();
+    
+    fetchMeals().catch((error) => {
+      setIsLoading(false);
+      setHttpError(error.message);
+    });
   }, []);
+
+  if (isLoading) {
+    return (
+      <section className={classes.MealsIsLoading}>
+        <p>Загрузка...</p>
+      </section>
+    );
+  }
+
+  if (httpError) {
+    return (
+      <section className={classes.MealsError}>
+        <p>{httpError}</p>
+      </section>
+    );
+  }
 
   const mealList = meals.map((meal) => (
     //реализую компонент meal item, в который через props пробрасываю верстку для этой секции и наполняю содержимым 
